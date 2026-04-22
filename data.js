@@ -1,6 +1,6 @@
 const profileData = {
   name: "唯道行 Yuiko",
-  avatar: "https://github.com/1105623876/1105623876.github.io/blob/main/avatar.jpg",
+  avatar: "https://raw.githubusercontent.com/1105623876/1105623876.github.io/main/avatar.jpg",
   bio: "只是一只想让世界变得更好的小蝴蝶",
   links: [
     { name: "GitHub", url: "https://github.com/1105623876" },
