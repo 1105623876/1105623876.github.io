@@ -1,0 +1,344 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  background: linear-gradient(135deg, #f9fafb 0%, #f3f4f6 100%);
+  color: #333;
+  line-height: 1.6;
+  min-height: 100vh;
+}
+
+.container {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 60px 20px;
+}
+
+.profile-layout {
+  display: grid;
+  grid-template-columns: 300px 1fr;
+  gap: 40px;
+  align-items: start;
+}
+
+.sidebar {
+  position: sticky;
+  top: 20px;
+  background: #fff;
+  border-radius: 20px;
+  padding: 36px 28px;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.06);
+  text-align: center;
+  border: 1px solid rgba(0, 0, 0, 0.04);
+}
+
+.avatar {
+  width: 110px;
+  height: 110px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 20px;
+  border: 4px solid #fff;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+}
+
+.name {
+  font-size: 22px;
+  font-weight: 700;
+  color: #1a1a1a;
+  margin-bottom: 6px;
+  letter-spacing: -0.5px;
+}
+
+.bio {
+  font-size: 14px;
+  color: #666;
+  margin-bottom: 20px;
+  line-height: 1.6;
+}
+
+.links {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  margin-bottom: 20px;
+}
+
+.link-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 14px;
+  background: linear-gradient(135deg, #6b7280 0%, #4b5563 100%);
+  color: #fff;
+  text-decoration: none;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 500;
+  transition: all 0.25s ease;
+  box-shadow: 0 2px 8px rgba(107, 114, 128, 0.3);
+}
+
+.link-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 16px rgba(107, 114, 128, 0.4);
+}
+
+.sidebar-details {
+  margin-top: 24px;
+  padding-top: 20px;
+  border-top: 2px solid #f0f0f0;
+  text-align: left;
+}
+
+.sidebar-details .detail-item {
+  margin-bottom: 16px;
+}
+
+.sidebar-details .detail-item:last-child {
+  margin-bottom: 0;
+}
+
+.detail-label {
+  font-size: 11px;
+  font-weight: 600;
+  color: #999;
+  text-transform: uppercase;
+  letter-spacing: 1.2px;
+  margin-bottom: 6px;
+}
+
+.experiences-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.experience-card {
+  background: linear-gradient(135deg, #f9fafb 0%, #f3f4f6 100%);
+  border-radius: 12px;
+  padding: 12px 14px;
+  font-size: 13px;
+  color: #444;
+  line-height: 1.5;
+  border-left: 3px solid #6b7280;
+  transition: all 0.25s ease;
+}
+
+.experience-card:hover {
+  background: linear-gradient(135deg, #f3f4f6 0%, #e5e7eb 100%);
+  transform: translateX(4px);
+  border-left-color: #4b5563;
+}
+
+.detail-value.institution {
+  font-size: 15px;
+  font-weight: 600;
+  color: #444;
+}
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.tag {
+  background: linear-gradient(135deg, #f9fafb 0%, #f3f4f6 100%);
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+  color: #555;
+  border: 1px solid #d1d5db;
+}
+
+.main-content {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.content-card {
+  background: #fff;
+  border-radius: 20px;
+  padding: 28px;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.06);
+  border: 1px solid rgba(0, 0, 0, 0.04);
+}
+
+.card-title {
+  font-size: 15px;
+  font-weight: 700;
+  color: #1a1a1a;
+  margin-bottom: 20px;
+  padding-bottom: 14px;
+  border-bottom: 2px solid #f0f0f0;
+  position: relative;
+}
+
+.card-title::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 40px;
+  height: 2px;
+  background: linear-gradient(90deg, #6b7280, #4b5563);
+  border-radius: 2px;
+}
+
+.detail-item {
+  margin-bottom: 20px;
+}
+
+.detail-item:last-child {
+  margin-bottom: 0;
+}
+
+.introduction {
+  font-size: 14px;
+  color: #444;
+  line-height: 1.8;
+  white-space: pre-wrap;
+}
+
+.news-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.news-item {
+  font-size: 14px;
+  color: #444;
+  line-height: 1.5;
+  padding: 12px 14px;
+  background: linear-gradient(135deg, #f9fafb 0%, #f3f4f6 100%);
+  border-radius: 10px;
+  border-left: 3px solid #6b7280;
+  transition: all 0.25s ease;
+}
+
+.news-item:hover {
+  background: linear-gradient(135deg, #f3f4f6 0%, #e5e7eb 100%);
+  transform: translateX(4px);
+  border-left-color: #4b5563;
+}
+
+.news-date {
+  color: #999;
+  margin-right: 10px;
+  font-size: 13px;
+}
+
+.news-text {
+  color: #333;
+}
+
+.tweet-item {
+  display: block;
+  padding: 16px;
+  background: linear-gradient(135deg, #f9fafb 0%, #f3f4f6 100%);
+  border-radius: 14px;
+  margin-bottom: 12px;
+  transition: all 0.25s ease;
+  cursor: pointer;
+  border: 1px solid transparent;
+  border-left: 3px solid #6b7280;
+  text-decoration: none;
+  color: inherit;
+}
+
+.tweet-item:last-child {
+  margin-bottom: 0;
+}
+
+.tweet-item:hover {
+  background: linear-gradient(135deg, #f3f4f6 0%, #e5e7eb 100%);
+  border-color: #d1d5db;
+  border-left-color: #4b5563;
+  transform: translateX(4px);
+}
+
+.tweet-title {
+  font-size: 15px;
+  font-weight: 600;
+  color: #1a1a1a;
+  margin-bottom: 6px;
+}
+
+.tweet-summary {
+  font-size: 13px;
+  color: #666;
+  margin-bottom: 8px;
+  line-height: 1.5;
+}
+
+.tweet-meta {
+  font-size: 12px;
+  color: #999;
+}
+
+.lang-toggle {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 100;
+}
+
+.lang-btn {
+  background: #fff;
+  border: none;
+  border-radius: 20px;
+  padding: 10px 18px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #6b7280;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+  border: 2px solid #6b7280;
+}
+
+.lang-btn:hover {
+  background: linear-gradient(135deg, #6b7280 0%, #4b5563 100%);
+  color: #fff;
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: 30px 16px;
+  }
+
+  .profile-layout {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+
+  .sidebar {
+    position: static;
+    padding: 28px 20px;
+  }
+
+  .content-card {
+    padding: 22px;
+  }
+
+  .name {
+    font-size: 20px;
+  }
+
+  .lang-toggle {
+    top: 12px;
+    right: 12px;
+  }
+
+  .lang-btn {
+    padding: 8px 14px;
+    font-size: 12px;
+  }
+}

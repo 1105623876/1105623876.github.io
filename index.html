@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>个人主页</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <div class="profile-layout">
+      <aside class="sidebar">
+        <img id="avatar" class="avatar" src="" alt="头像">
+        <h1 id="name" class="name"></h1>
+        <p id="bio" class="bio"></p>
+        <div id="links" class="links"></div>
+        <div id="sidebar-details" class="sidebar-details"></div>
+      </aside>
+
+      <main class="main-content">
+        <section id="about" class="content-card"></section>
+        <section id="news" class="content-card"></section>
+        <section id="tweets" class="content-card"></section>
+      </main>
+    </div>
+  </div>
+
+  <div class="lang-toggle">
+    <button id="lang-btn" class="lang-btn">EN / 中文</button>
+  </div>
+
+  <script src="data.js"></script>
+  <script>
+    let currentLang = 'zh';
+
+    function renderPage() {
+      const t = i18n[currentLang];
+
+      document.getElementById('avatar').src = profileData.avatar;
+      document.getElementById('name').textContent = profileData.name;
+      document.getElementById('bio').textContent = profileData.bio;
+
+      const linksContainer = document.getElementById('links');
+      linksContainer.innerHTML = '';
+      profileData.links.forEach(link => {
+        const a = document.createElement('a');
+        a.href = link.url;
+        a.className = 'link-btn';
+        a.textContent = link.name;
+        a.target = '_blank';
+        linksContainer.appendChild(a);
+      });
+
+      const sidebarDetails = document.getElementById('sidebar-details');
+      const details = profileData.details;
+      let sidebarHTML = '';
+
+      if (details.institution) {
+        sidebarHTML += `
+          <div class="detail-item">
+            <div class="detail-label">${t.institution}</div>
+            <div class="detail-value institution">${details.institution}</div>
+          </div>
+        `;
+      }
+
+      if (details.identity && details.identity.length > 0) {
+        sidebarHTML += `
+          <div class="detail-item">
+            <div class="detail-label">${t.identity}</div>
+            <div class="tags">
+              ${details.identity.map(tag => `<span class="tag">${tag}</span>`).join('')}
+            </div>
+          </div>
+        `;
+      }
+
+      if (details.emails && details.emails.length > 0) {
+        sidebarHTML += `
+          <div class="detail-item">
+            <div class="detail-label">${t.emails}</div>
+            <div class="detail-value">${details.emails.join('<br>')}</div>
+          </div>
+        `;
+      }
+
+      if (details.researchInterests && details.researchInterests.length > 0) {
+        sidebarHTML += `
+          <div class="detail-item">
+            <div class="detail-label">${t.researchInterests}</div>
+            <div class="tags">
+              ${details.researchInterests.map(tag => `<span class="tag">${tag}</span>`).join('')}
+            </div>
+          </div>
+        `;
+      }
+
+      if (details.experiences && details.experiences.length > 0) {
+        sidebarHTML += `
+          <div class="detail-item">
+            <div class="detail-label">${t.experiences}</div>
+            <div class="experiences-list">
+              ${details.experiences.map(exp => `<div class="experience-card">${exp}</div>`).join('')}
+            </div>
+          </div>
+        `;
+      }
+
+      sidebarDetails.innerHTML = sidebarHTML;
+
+      const aboutContainer = document.getElementById('about');
+      let aboutHTML = '';
+
+      if (details.introduction) {
+        aboutHTML += `
+          <div class="detail-item">
+            <div class="detail-label">${t.introduction}</div>
+            <div class="introduction">${details.introduction}</div>
+          </div>
+        `;
+      }
+
+      if (aboutHTML) {
+        aboutContainer.innerHTML = `<h2 class="card-title">${t.about}</h2>` + aboutHTML;
+      }
+
+      const newsContainer = document.getElementById('news');
+      if (profileData.news && profileData.news.length > 0) {
+        const newsHTML = profileData.news.map(item => `
+          <div class="news-item">
+            <span class="news-date">[${item.date}]</span>
+            <span class="news-text">${item.text}</span>
+          </div>
+        `).join('');
+        newsContainer.innerHTML = `<h2 class="card-title">${t.news}</h2><div class="news-list">${newsHTML}</div>`;
+      }
+
+      const tweetsContainer = document.getElementById('tweets');
+      if (profileData.tweets && profileData.tweets.length > 0) {
+        const tweetsHTML = profileData.tweets.map(tweet => `
+          <a href="${tweet.url}" target="_blank" class="tweet-item">
+            <div class="tweet-title">${tweet.title}</div>
+            <div class="tweet-summary">${tweet.summary}</div>
+            <div class="tweet-meta">${tweet.date || ''}</div>
+          </a>
+        `).join('');
+        tweetsContainer.innerHTML = `<h2 class="card-title">${t.articles}</h2>` + tweetsHTML;
+      }
+    }
+
+    document.getElementById('lang-btn').addEventListener('click', () => {
+      currentLang = currentLang === 'zh' ? 'en' : 'zh';
+      renderPage();
+    });
+
+    renderPage();
+  </script>
+</body>
+</html>
