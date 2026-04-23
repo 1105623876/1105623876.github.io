@@ -25,13 +25,27 @@
     </div>
   </div>
 
-  <div class="lang-toggle">
-    <button id="lang-btn" class="lang-btn">EN / 中文</button>
+  <div class="controls">
+    <button id="theme-btn" class="control-btn">🌙</button>
+    <button id="lang-btn" class="control-btn">EN / 中文</button>
   </div>
+
+  <button id="back-to-top" class="back-to-top" title="返回顶部">↑</button>
+  <button id="share-btn" class="share-btn" title="分享">⋯</button>
 
   <script src="data.js"></script>
   <script>
     let currentLang = 'zh';
+    let currentTheme = localStorage.getItem('theme') || 'light';
+
+    function setTheme(theme) {
+      currentTheme = theme;
+      document.documentElement.setAttribute('data-theme', theme);
+      localStorage.setItem('theme', theme);
+      document.getElementById('theme-btn').textContent = theme === 'dark' ? '☀️' : '🌙';
+    }
+
+    setTheme(currentTheme);
 
     function renderPage() {
       const t = i18n[currentLang];
@@ -148,10 +162,59 @@
       }
     }
 
+    document.getElementById('theme-btn').addEventListener('click', () => {
+      setTheme(currentTheme === 'dark' ? 'light' : 'dark');
+    });
+
     document.getElementById('lang-btn').addEventListener('click', () => {
       currentLang = currentLang === 'zh' ? 'en' : 'zh';
       renderPage();
     });
+
+    const backToTopBtn = document.getElementById('back-to-top');
+
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 300) {
+        backToTopBtn.classList.add('visible');
+      } else {
+        backToTopBtn.classList.remove('visible');
+      }
+    });
+
+    backToTopBtn.addEventListener('click', () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+
+    document.getElementById('share-btn').addEventListener('click', async () => {
+      const shareData = {
+        title: profileData.name,
+        text: profileData.bio,
+        url: window.location.href
+      };
+
+      if (navigator.share) {
+        try {
+          await navigator.share(shareData);
+        } catch (err) {
+          if (err.name !== 'AbortError') {
+            copyToClipboard(window.location.href);
+          }
+        }
+      } else {
+        copyToClipboard(window.location.href);
+      }
+    });
+
+    function copyToClipboard(text) {
+      navigator.clipboard.writeText(text).then(() => {
+        const shareBtn = document.getElementById('share-btn');
+        const originalText = shareBtn.textContent;
+        shareBtn.textContent = '✓';
+        setTimeout(() => {
+          shareBtn.textContent = originalText;
+        }, 2000);
+      });
+    }
 
     renderPage();
   </script>
