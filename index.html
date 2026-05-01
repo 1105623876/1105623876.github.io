@@ -49,14 +49,16 @@
 
     function renderPage() {
       const t = i18n[currentLang];
+      const data = profileData[currentLang];
+      const common = profileData.common;
 
-      document.getElementById('avatar').src = profileData.avatar;
-      document.getElementById('name').textContent = profileData.name;
-      document.getElementById('bio').textContent = profileData.bio;
+      document.getElementById('avatar').src = common.avatar;
+      document.getElementById('name').textContent = data.name;
+      document.getElementById('bio').textContent = data.bio;
 
       const linksContainer = document.getElementById('links');
       linksContainer.innerHTML = '';
-      profileData.links.forEach(link => {
+      common.links.forEach(link => {
         const a = document.createElement('a');
         a.href = link.url;
         a.className = 'link-btn';
@@ -66,7 +68,7 @@
       });
 
       const sidebarDetails = document.getElementById('sidebar-details');
-      const details = profileData.details;
+      const details = data.details;
       let sidebarHTML = '';
 
       if (details.institution) {
@@ -89,11 +91,11 @@
         `;
       }
 
-      if (details.emails && details.emails.length > 0) {
+      if (common.emails && common.emails.length > 0) {
         sidebarHTML += `
           <div class="detail-item">
             <div class="detail-label">${t.emails}</div>
-            <div class="detail-value">${details.emails.join('<br>')}</div>
+            <div class="detail-value">${common.emails.join('<br>')}</div>
           </div>
         `;
       }
@@ -139,8 +141,8 @@
       }
 
       const newsContainer = document.getElementById('news');
-      if (profileData.news && profileData.news.length > 0) {
-        const newsHTML = profileData.news.map(item => `
+      if (data.news && data.news.length > 0) {
+        const newsHTML = data.news.map(item => `
           <div class="news-item">
             <span class="news-date">[${item.date}]</span>
             <span class="news-text">${item.text}</span>
@@ -150,8 +152,8 @@
       }
 
       const tweetsContainer = document.getElementById('tweets');
-      if (profileData.tweets && profileData.tweets.length > 0) {
-        const tweetsHTML = profileData.tweets.map(tweet => `
+      if (data.tweets && data.tweets.length > 0) {
+        const tweetsHTML = data.tweets.map(tweet => `
           <a href="${tweet.url}" target="_blank" class="tweet-item">
             <div class="tweet-title">${tweet.title}</div>
             <div class="tweet-summary">${tweet.summary}</div>
@@ -186,9 +188,10 @@
     });
 
     document.getElementById('share-btn').addEventListener('click', async () => {
+      const data = profileData[currentLang];
       const shareData = {
-        title: profileData.name,
-        text: profileData.bio,
+        title: data.name,
+        text: data.bio,
         url: window.location.href
       };
 
